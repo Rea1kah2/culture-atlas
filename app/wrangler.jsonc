@@ -27,14 +27,11 @@
   // D1 database (Culture Atlas destinations/stories/experiences/marketplace
   // data). Schema lives in migrations/000N_*.sql (additive) — apply with
   // `bun run db:migrate` (wraps `wrangler d1 migrations apply --remote`).
-  // TODO: replace database_id below with the real ID once the D1 database is
-  // created (Cloudflare dashboard → Workers & Pages → D1 → Create database,
-  // name it "culture-atlas" — or `wrangler d1 create culture-atlas`).
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "culture-atlas",
-      "database_id": "REPLACE_WITH_REAL_D1_DATABASE_ID",
+      "database_name": "culture_atlas",
+      "database_id": "215359c3-9ee3-4d73-844f-1b02c1798e0c",
       "migrations_dir": "migrations"
     }
   ]
