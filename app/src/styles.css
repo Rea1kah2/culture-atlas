@@ -1,0 +1,127 @@
+@layer reset, theme, base, components, utilities;
+
+/* Remote font @import rules go FIRST: @import "tailwindcss" below inlines
+ * its full content in place, so anything after it is technically "after
+ * other rules" in the flattened stylesheet even though it reads as another
+ * @import in this source file. Culture Atlas brand fonts: Cabinet Grotesk
+ * (display) via Fontshare's free, self-hostable API; Inter Tight (body/UI)
+ * via Google Fonts. */
+@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap");
+
+@import "tailwindcss" source(none);
+@import "@higgsfield/quanta/tailwind.css";
+@import "tw-animate-css";
+
+/* Infra wiring only (per website-builder-flow: "leave that wiring alone even
+ * though websites use neither") — this brings in Tailwind's base engine
+ * scanning for the vendored template bundle. Culture Atlas never imports
+ * @higgsfield/quanta/* components and never uses q-prefixed utility classes
+ * anywhere in its own markup; every visual token below is custom. */
+@source "../src";
+@source "../packages/quanta/src";
+
+/* ---------------------------------------------------------------------
+ * Culture Atlas design tokens (design-brief.md "Locked palette" / "Locked
+ * type"). This is the ONLY brand system on the page — no Quanta/q- tokens
+ * are used in any component here.
+ * ------------------------------------------------------------------- */
+@theme {
+  --spacing: 0.25rem;
+
+  /* Culture Atlas v2 palette — modern Indonesian blue (design-brief.md
+   * revision). Token NAMES are kept (ca-paper/ca-ink/ca-gold) so the whole
+   * site reshades from here; only the values changed. The "gold" accent
+   * token now carries the primary vivid blue (main brand color), and
+   * "gold-soft" keeps a warm amber as the sparingly-used secondary accent
+   * (batik-gold nod), only ever shown on the dark navy surfaces. */
+  --color-ca-ink: #12243f;
+  --color-ca-ink-soft: #51617f;
+  --color-ca-paper: #eef3fa;
+  --color-ca-paper-deep: #d7e4f4;
+  --color-ca-paper-bright: #ffffff;
+  --color-ca-gold: #1d6fd6;
+  --color-ca-gold-soft: #e7bb6a;
+  /* Functional-only, never used as a second brand accent: form validation
+   * errors need their own semantic color for legibility. */
+  --color-ca-error: #c0392b;
+
+  --font-display: "Cabinet Grotesk", "Inter Tight", system-ui, sans-serif;
+  --font-body: "Inter Tight", system-ui, sans-serif;
+
+  --breakpoint-xs: 22rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-ca-paper);
+    color: var(--color-ca-ink);
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-ca-paper);
+    color: var(--color-ca-ink);
+    font-family: var(--font-body);
+  }
+
+  * {
+    border-color: color-mix(in srgb, var(--color-ca-ink) 14%, transparent);
+  }
+
+  ::selection {
+    background-color: var(--color-ca-gold);
+    color: #ffffff;
+  }
+}
+
+@layer utilities {
+  /* Hairline rule instead of shadows/elevation — the stamped-document
+   * corner language declared in design-brief.md. */
+  .ca-rule {
+    border-top: 1px solid color-mix(in srgb, var(--color-ca-ink) 16%, transparent);
+  }
+
+  .ca-input {
+    width: 100%;
+    border: 1px solid color-mix(in srgb, var(--color-ca-ink) 30%, transparent);
+    background-color: var(--color-ca-paper-bright);
+    padding: 0.75rem 1rem;
+    color: var(--color-ca-ink);
+    font-family: var(--font-body);
+  }
+
+  .ca-input::placeholder {
+    color: color-mix(in srgb, var(--color-ca-ink) 45%, transparent);
+  }
+
+  .ca-input:focus {
+    outline: 2px solid var(--color-ca-gold);
+    outline-offset: 1px;
+  }
+
+  .ca-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ca-ink-soft);
+  }
+
+  /* Reduced-motion: kill everything animated site-wide, fall back to the
+   * fully-rendered static state (design-brief.md Motion section). */
+  @media (prefers-reduced-motion: reduce) {
+    .ca-motion,
+    .ca-motion * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
