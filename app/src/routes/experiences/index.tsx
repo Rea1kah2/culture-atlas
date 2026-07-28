@@ -59,7 +59,7 @@ function Experiences() {
                   {formatIDR(exp.price_idr)} · {exp.duration} · {exp.group_size}
                 </p>
                 <div className="mt-auto flex flex-wrap items-center gap-4 pt-3">
-                  <TicketButton>{t("btn.reserveExperience")}</TicketButton>
+                  <TicketButton slug={exp.slug}>{t("btn.reserveExperience")}</TicketButton>
                   <UnderlineLink to="/destinations/$slug" slug={exp.destination_slug}>
                     {t("btn.viewDestination")}
                   </UnderlineLink>

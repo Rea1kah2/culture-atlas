@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as AmbassadorRouteImport } from './routes/ambassador'
 import { Route as IndexRouteImport } from './routes/index'
@@ -19,6 +21,7 @@ import { Route as MarketplaceIndexRouteImport } from './routes/marketplace/index
 import { Route as ExperiencesIndexRouteImport } from './routes/experiences/index'
 import { Route as StoriesSlugRouteImport } from './routes/stories/$slug'
 import { Route as MarketplaceSlugRouteImport } from './routes/marketplace/$slug'
+import { Route as ExperiencesSlugRouteImport } from './routes/experiences/$slug'
 import { Route as DestinationsSlugRouteImport } from './routes/destinations/$slug'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -29,6 +32,16 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
   id: '/robots.txt',
   path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExploreRoute = ExploreRouteImport.update({
@@ -71,6 +84,11 @@ const MarketplaceSlugRoute = MarketplaceSlugRouteImport.update({
   path: '/marketplace/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExperiencesSlugRoute = ExperiencesSlugRouteImport.update({
+  id: '/experiences/$slug',
+  path: '/experiences/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DestinationsSlugRoute = DestinationsSlugRouteImport.update({
   id: '/destinations/$slug',
   path: '/destinations/$slug',
@@ -81,9 +99,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ambassador': typeof AmbassadorRoute
   '/explore': typeof ExploreRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/destinations/$slug': typeof DestinationsSlugRoute
+  '/experiences/$slug': typeof ExperiencesSlugRoute
   '/marketplace/$slug': typeof MarketplaceSlugRoute
   '/stories/$slug': typeof StoriesSlugRoute
   '/experiences/': typeof ExperiencesIndexRoute
@@ -94,9 +115,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ambassador': typeof AmbassadorRoute
   '/explore': typeof ExploreRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/destinations/$slug': typeof DestinationsSlugRoute
+  '/experiences/$slug': typeof ExperiencesSlugRoute
   '/marketplace/$slug': typeof MarketplaceSlugRoute
   '/stories/$slug': typeof StoriesSlugRoute
   '/experiences': typeof ExperiencesIndexRoute
@@ -108,9 +132,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/ambassador': typeof AmbassadorRoute
   '/explore': typeof ExploreRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/destinations/$slug': typeof DestinationsSlugRoute
+  '/experiences/$slug': typeof ExperiencesSlugRoute
   '/marketplace/$slug': typeof MarketplaceSlugRoute
   '/stories/$slug': typeof StoriesSlugRoute
   '/experiences/': typeof ExperiencesIndexRoute
@@ -123,9 +150,12 @@ export interface FileRouteTypes {
     | '/'
     | '/ambassador'
     | '/explore'
+    | '/login'
+    | '/register'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/destinations/$slug'
+    | '/experiences/$slug'
     | '/marketplace/$slug'
     | '/stories/$slug'
     | '/experiences/'
@@ -136,9 +166,12 @@ export interface FileRouteTypes {
     | '/'
     | '/ambassador'
     | '/explore'
+    | '/login'
+    | '/register'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/destinations/$slug'
+    | '/experiences/$slug'
     | '/marketplace/$slug'
     | '/stories/$slug'
     | '/experiences'
@@ -149,9 +182,12 @@ export interface FileRouteTypes {
     | '/'
     | '/ambassador'
     | '/explore'
+    | '/login'
+    | '/register'
     | '/robots.txt'
     | '/sitemap.xml'
     | '/destinations/$slug'
+    | '/experiences/$slug'
     | '/marketplace/$slug'
     | '/stories/$slug'
     | '/experiences/'
@@ -163,9 +199,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AmbassadorRoute: typeof AmbassadorRoute
   ExploreRoute: typeof ExploreRoute
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   DestinationsSlugRoute: typeof DestinationsSlugRoute
+  ExperiencesSlugRoute: typeof ExperiencesSlugRoute
   MarketplaceSlugRoute: typeof MarketplaceSlugRoute
   StoriesSlugRoute: typeof StoriesSlugRoute
   ExperiencesIndexRoute: typeof ExperiencesIndexRoute
@@ -187,6 +226,20 @@ declare module '@tanstack/react-router' {
       path: '/robots.txt'
       fullPath: '/robots.txt'
       preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/explore': {
@@ -245,6 +298,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketplaceSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/experiences/$slug': {
+      id: '/experiences/$slug'
+      path: '/experiences/$slug'
+      fullPath: '/experiences/$slug'
+      preLoaderRoute: typeof ExperiencesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/destinations/$slug': {
       id: '/destinations/$slug'
       path: '/destinations/$slug'
@@ -259,9 +319,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AmbassadorRoute: AmbassadorRoute,
   ExploreRoute: ExploreRoute,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   DestinationsSlugRoute: DestinationsSlugRoute,
+  ExperiencesSlugRoute: ExperiencesSlugRoute,
   MarketplaceSlugRoute: MarketplaceSlugRoute,
   StoriesSlugRoute: StoriesSlugRoute,
   ExperiencesIndexRoute: ExperiencesIndexRoute,

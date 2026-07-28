@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { ClientOnly } from "../components/site/client-only";
 import { SmoothScroll } from "../components/site/smooth-scroll";
 import { LanguageProvider } from "../lib/i18n/context";
+import { getCurrentUser, type SessionUser } from "../lib/api/auth.functions";
 // Page metadata (browser <title>/favicon + social og: tags) committed into the
 // repo, read at BUILD time — no runtime fetch.
 import appMetaJson from "../app-meta.json";
@@ -138,7 +139,18 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient;
+  user: SessionUser | null;
+}>()({
+  // Reads the session cookie (if any) once per request/navigation so every
+  // route/component below can read `context.user` without fetching it
+  // themselves. Never throws — an invalid/expired session just resolves to
+  // no user rather than breaking the page.
+  beforeLoad: async () => {
+    const { user } = await getCurrentUser();
+    return { user };
+  },
   head: () => buildHead(appMeta),
   shellComponent: RootShell,
   component: RootComponent,

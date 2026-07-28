@@ -172,7 +172,9 @@ function DestinationDetail() {
                   <p className="mt-3 text-sm font-semibold">
                     {formatIDR(exp.price_idr)} · {exp.duration}
                   </p>
-                  <TicketButton className="mt-4">{t("btn.reserveExperience")}</TicketButton>
+                  <TicketButton slug={exp.slug} className="mt-4">
+                    {t("btn.reserveExperience")}
+                  </TicketButton>
                 </div>
               ))}
             </div>

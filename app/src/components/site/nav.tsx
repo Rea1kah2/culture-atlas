@@ -1,7 +1,8 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouteContext, useRouter } from "@tanstack/react-router";
 
 import { useT } from "../../lib/i18n/context";
 import { LanguageSwitcher } from "./language-switcher";
+import { logoutUser } from "../../lib/api/auth.functions";
 
 const LINKS = [
   { to: "/explore", key: "nav.explore" },
@@ -13,6 +14,13 @@ const LINKS = [
 
 export function SiteNav() {
   const t = useT();
+  const { user } = useRouteContext({ from: "__root__" });
+  const router = useRouter();
+
+  async function handleLogout() {
+    await logoutUser();
+    await router.invalidate();
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-ca-ink/15 bg-ca-paper/95 backdrop-blur">
@@ -38,6 +46,22 @@ export function SiteNav() {
         </div>
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
+          {user ? (
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="text-sm font-medium text-ca-ink-soft transition-colors hover:text-ca-ink"
+            >
+              {t("auth.nav.logout")}
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="text-sm font-medium text-ca-ink-soft transition-colors hover:text-ca-ink"
+            >
+              {t("auth.nav.login")}
+            </Link>
+          )}
           <Link
             to="/explore"
             className="hidden border border-ca-ink px-4 py-2 text-sm font-semibold text-ca-ink transition-colors hover:bg-ca-ink hover:text-ca-paper md:inline-block"

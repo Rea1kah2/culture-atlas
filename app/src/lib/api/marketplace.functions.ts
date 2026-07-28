@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
 import { bindings } from "../bindings.server";
+import { getSessionUser } from "./auth.functions";
 
 export type MarketplaceProduct = {
   slug: string;
@@ -53,6 +54,40 @@ export const getProduct = createServerFn({ method: "GET" })
       .first<MarketplaceProduct>();
 
     return { product: product ?? null };
+  });
+
+const orderSchema = z.object({
+  productSlug: z.string().min(1),
+  quantity: z.coerce.number().int().min(1).max(50),
+  shippingAddress: z.string().min(10, "Alamat pengiriman terlalu singkat"),
+  note: z.string().optional(),
+});
+
+// "Buy" this marketplace has no online payment gateway (see product decision
+// in marketplace/$slug.tsx) -- this creates a pending order request; payment
+// / fulfillment follow-up happens off-platform, same spirit as how
+// `local_experiences.how_to_join` already routes coordination outside the app.
+export const createOrder = createServerFn({ method: "POST" })
+  .inputValidator(orderSchema)
+  .handler(async ({ data }) => {
+    const user = await getSessionUser();
+    if (!user) {
+      return { ok: false as const, error: "Silakan login terlebih dahulu." };
+    }
+
+    const { DB } = bindings();
+    if (!DB) {
+      return { ok: false as const, error: "Database tidak aktif di lingkungan ini." };
+    }
+
+    await DB.prepare(
+      `INSERT INTO orders (user_id, product_slug, quantity, shipping_address, note)
+       VALUES (?, ?, ?, ?, ?)`,
+    )
+      .bind(user.id, data.productSlug, data.quantity, data.shippingAddress, data.note || null)
+      .run();
+
+    return { ok: true as const };
   });
 
 export const listProductsForDestination = createServerFn({ method: "GET" })

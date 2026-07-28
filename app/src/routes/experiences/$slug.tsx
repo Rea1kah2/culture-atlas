@@ -7,38 +7,38 @@ import { z } from "zod";
 import { SiteNav } from "../../components/site/nav";
 import { SiteFooter } from "../../components/site/footer";
 import { FieldPlate } from "../../components/site/field-plate";
-import { IconThread, IconCoffee, IconStamp } from "../../components/site/icons";
+import { IconCompass, IconStamp } from "../../components/site/icons";
 import { UnderlineLink } from "../../components/site/cta/underline-link";
 import { formatIDR } from "../../lib/format";
 import { useT } from "../../lib/i18n/context";
-import { getProduct, createOrder } from "../../lib/api/marketplace.functions";
+import { getExperience, createReservation } from "../../lib/api/experiences.functions";
 
-export const Route = createFileRoute("/marketplace/$slug")({
+export const Route = createFileRoute("/experiences/$slug")({
   loader: async ({ params }) => {
-    const { product } = await getProduct({ data: { slug: params.slug } });
-    if (!product) throw notFound();
-    return { product };
+    const { experience } = await getExperience({ data: { slug: params.slug } });
+    if (!experience) throw notFound();
+    return { experience };
   },
-  component: ProductDetail,
+  component: ExperienceDetail,
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.product.name} · Culture Atlas Marketplace` },
-          { name: "description", content: loaderData.product.description },
+          { title: `${loaderData.experience.title} · Culture Atlas` },
+          { name: "description", content: loaderData.experience.description },
         ]
       : [],
   }),
 });
 
-const orderFormSchema = z.object({
-  quantity: z.string().min(1),
-  shippingAddress: z.string().min(10, "Alamat pengiriman terlalu singkat"),
-  note: z.string().optional(),
+const reservationFormSchema = z.object({
+  preferredDate: z.string().min(1, "Pilih tanggal yang diinginkan"),
+  participants: z.string().min(1),
+  contactNote: z.string().optional(),
 });
-type OrderFormValues = z.infer<typeof orderFormSchema>;
+type ReservationFormValues = z.infer<typeof reservationFormSchema>;
 
-function ProductDetail() {
-  const { product } = Route.useLoaderData();
+function ExperienceDetail() {
+  const { experience } = Route.useLoaderData();
   const t = useT();
   const { user } = useRouteContext({ from: "__root__" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -48,21 +48,21 @@ function ProductDetail() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<OrderFormValues>({
-    resolver: zodResolver(orderFormSchema),
-    defaultValues: { quantity: "1" },
+  } = useForm<ReservationFormValues>({
+    resolver: zodResolver(reservationFormSchema),
+    defaultValues: { participants: "1" },
   });
 
-  async function onSubmit(values: OrderFormValues) {
+  async function onSubmit(values: ReservationFormValues) {
     setStatus("submitting");
     setErrorMessage(null);
     try {
-      const result = await createOrder({
+      const result = await createReservation({
         data: {
-          productSlug: product.slug,
-          quantity: Number(values.quantity),
-          shippingAddress: values.shippingAddress,
-          note: values.note,
+          experienceSlug: experience.slug,
+          preferredDate: values.preferredDate,
+          participants: Number(values.participants),
+          contactNote: values.contactNote,
         },
       });
       if (result.ok) {
@@ -83,29 +83,38 @@ function ProductDetail() {
       <section className="px-6 py-12">
         <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2">
           <FieldPlate
-            icon={
-              product.category === "kopi" ? (
-                <IconCoffee className="h-8 w-8" />
-              ) : (
-                <IconThread className="h-8 w-8" />
-              )
-            }
-            label={product.name}
+            icon={<IconCompass className="h-8 w-8" />}
+            label={experience.title}
             aspect="aspect-square"
           />
           <div>
-            <span className="ca-eyebrow capitalize">{product.category}</span>
-            <h1 className="mt-3 font-display text-3xl font-bold md:text-4xl">{product.name}</h1>
+            <span className="ca-eyebrow">
+              {experience.destination_name} · {experience.destination_province}
+            </span>
+            <h1 className="mt-3 font-display text-3xl font-bold md:text-4xl">
+              {experience.title}
+            </h1>
             <p className="mt-4 text-2xl font-display font-bold text-ca-gold">
-              {formatIDR(product.price_idr)}
+              {formatIDR(experience.price_idr)}
             </p>
-            <p className="mt-4 text-ca-ink-soft">{product.description}</p>
-            <p className="mt-4 text-sm font-semibold">
-              {t("common.madeBy")} {product.maker_name}
-            </p>
+            <p className="mt-4 text-ca-ink-soft">{experience.description}</p>
+            <dl className="mt-4 space-y-1 text-sm">
+              <div className="flex gap-2">
+                <dt className="font-semibold">{t("experience.detail.duration")}:</dt>
+                <dd className="text-ca-ink-soft">{experience.duration}</dd>
+              </div>
+              <div className="flex gap-2">
+                <dt className="font-semibold">{t("experience.detail.groupSize")}:</dt>
+                <dd className="text-ca-ink-soft">{experience.group_size}</dd>
+              </div>
+              <div className="flex gap-2">
+                <dt className="font-semibold">{t("experience.detail.howToJoin")}:</dt>
+                <dd className="text-ca-ink-soft">{experience.how_to_join}</dd>
+              </div>
+            </dl>
             <div className="ca-rule mt-8 pt-6">
-              <UnderlineLink to="/destinations/$slug" slug={product.destination_slug}>
-                {`${t("common.view")} ${product.destination_name}`}
+              <UnderlineLink to="/destinations/$slug" slug={experience.destination_slug}>
+                {`${t("common.view")} ${experience.destination_name}`}
               </UnderlineLink>
             </div>
 
@@ -116,7 +125,7 @@ function ProductDetail() {
                   <p className="mt-2 text-sm text-ca-ink-soft">{t("auth.gate.body")}</p>
                   <Link
                     to="/login"
-                    search={{ redirect: `/marketplace/${product.slug}` }}
+                    search={{ redirect: `/experiences/${experience.slug}` }}
                     className="mt-4 inline-block border border-ca-ink bg-ca-ink px-6 py-3 font-semibold text-ca-paper transition-opacity hover:opacity-90"
                   >
                     {t("auth.gate.cta")}
@@ -127,38 +136,33 @@ function ProductDetail() {
                   <IconStamp className="h-8 w-8 shrink-0 text-ca-gold" />
                   <div>
                     <h2 className="font-display text-lg font-bold">
-                      {t("marketplace.order.success.title")}
+                      {t("reservation.success.title")}
                     </h2>
                     <p className="mt-2 text-sm text-ca-ink-soft">
-                      {t("marketplace.order.success.body")}
+                      {t("reservation.success.body")}
                     </p>
                   </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
-                  <h2 className="font-display text-lg font-bold">{t("marketplace.order.title")}</h2>
-                  <Field label={t("marketplace.order.quantity")} error={errors.quantity?.message}>
+                  <h2 className="font-display text-lg font-bold">{t("reservation.title")}</h2>
+                  <Field label={t("reservation.date")} error={errors.preferredDate?.message}>
+                    <input {...register("preferredDate")} type="date" className="ca-input" />
+                  </Field>
+                  <Field
+                    label={t("reservation.participants")}
+                    error={errors.participants?.message}
+                  >
                     <input
-                      {...register("quantity")}
+                      {...register("participants")}
                       type="number"
                       min={1}
-                      max={50}
+                      max={30}
                       className="ca-input"
                     />
                   </Field>
-                  <Field
-                    label={t("marketplace.order.address")}
-                    error={errors.shippingAddress?.message}
-                  >
-                    <textarea
-                      {...register("shippingAddress")}
-                      rows={3}
-                      className="ca-input resize-none"
-                      placeholder={t("marketplace.order.address.ph")}
-                    />
-                  </Field>
-                  <Field label={t("marketplace.order.note")}>
-                    <input {...register("note")} type="text" className="ca-input" />
+                  <Field label={t("reservation.note")}>
+                    <input {...register("contactNote")} type="text" className="ca-input" />
                   </Field>
 
                   {status === "error" && errorMessage && (
@@ -173,8 +177,8 @@ function ProductDetail() {
                     className="border border-ca-ink bg-ca-ink px-6 py-3 font-semibold text-ca-paper transition-opacity hover:opacity-90 disabled:opacity-60"
                   >
                     {status === "submitting"
-                      ? t("marketplace.order.submitting")
-                      : t("marketplace.order.submit")}
+                      ? t("reservation.submitting")
+                      : t("reservation.submit")}
                   </button>
                 </form>
               )}

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouteContext } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,6 +37,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 function Ambassador() {
   const t = useT();
+  const { user } = useRouteContext({ from: "__root__" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -90,7 +91,22 @@ function Ambassador() {
 
       <section className="ca-rule px-6 py-12">
         <div className="mx-auto max-w-3xl">
-          {status === "success" ? (
+          {!user ? (
+            <div className="flex items-start gap-4 border border-ca-ink/20 bg-ca-paper-bright p-6">
+              <IconStamp className="h-8 w-8 shrink-0 text-ca-gold" />
+              <div>
+                <h2 className="font-display text-xl font-bold">{t("auth.gate.title")}</h2>
+                <p className="mt-2 text-ca-ink-soft">{t("auth.gate.body")}</p>
+                <Link
+                  to="/login"
+                  search={{ redirect: "/ambassador" }}
+                  className="mt-4 inline-block border border-ca-ink bg-ca-ink px-6 py-3 font-semibold text-ca-paper transition-opacity hover:opacity-90"
+                >
+                  {t("auth.gate.cta")}
+                </Link>
+              </div>
+            </div>
+          ) : status === "success" ? (
             <div className="flex items-start gap-4 border border-ca-ink/20 bg-ca-paper-bright p-6">
               <IconStamp className="h-8 w-8 shrink-0 text-ca-gold" />
               <div>

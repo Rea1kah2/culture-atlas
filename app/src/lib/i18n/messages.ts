@@ -112,11 +112,31 @@ const en: Dict = {
   // experiences
   "experiences.eyebrow": "Local Experience",
   "experiences.title": "Learn the craft, don't just watch it",
+  "experience.detail.duration": "Duration",
+  "experience.detail.groupSize": "Group size",
+  "experience.detail.howToJoin": "How to join",
+  "reservation.title": "Request to reserve this experience",
+  "reservation.date": "Preferred date",
+  "reservation.participants": "Number of participants",
+  "reservation.note": "Note (optional)",
+  "reservation.submit": "Send reservation request",
+  "reservation.submitting": "Sending request…",
+  "reservation.success.title": "Reservation request received",
+  "reservation.success.body": "The local team will follow up by email to confirm your schedule.",
 
   // marketplace
   "marketplace.eyebrow": "Local Marketplace",
   "marketplace.title": "Bought straight from the maker, not a middleman",
   "marketplace.clearFilter": "Clear filter",
+  "marketplace.order.title": "Order this product",
+  "marketplace.order.quantity": "Quantity",
+  "marketplace.order.address": "Shipping address",
+  "marketplace.order.address.ph": "Full address, city, postal code",
+  "marketplace.order.note": "Note (optional)",
+  "marketplace.order.submit": "Place order request",
+  "marketplace.order.submitting": "Placing order…",
+  "marketplace.order.success.title": "Order request received",
+  "marketplace.order.success.body": "The maker will follow up by email or phone to confirm payment and shipping.",
 
   // destination detail
   "dd.history": "History",
@@ -150,6 +170,37 @@ const en: Dict = {
   "ambassador.form.submit": "Submit Application",
   "ambassador.form.submitting": "Submitting…",
   "ambassador.form.genericError": "Something went wrong. Please try again shortly.",
+
+  // auth (shared)
+  "auth.email": "Email",
+  "auth.password": "Password",
+  "auth.fullName": "Full name",
+  "auth.error.generic": "Something went wrong. Please try again shortly.",
+  "auth.nav.login": "Login",
+  "auth.nav.logout": "Logout",
+
+  // auth: login
+  "auth.login.eyebrow": "Account",
+  "auth.login.title": "Login to your account",
+  "auth.login.subtitle": "Login to order products, apply as an Ambassador, or reserve a Local Experience.",
+  "auth.login.submit": "Login",
+  "auth.login.submitting": "Logging in…",
+  "auth.login.noAccount": "Don't have an account yet?",
+  "auth.login.registerLink": "Register",
+
+  // auth: register
+  "auth.register.eyebrow": "Account",
+  "auth.register.title": "Create an account",
+  "auth.register.subtitle": "One account for ordering products, applying as an Ambassador, and reserving Local Experiences.",
+  "auth.register.submit": "Create account",
+  "auth.register.submitting": "Creating account…",
+  "auth.register.haveAccount": "Already have an account?",
+  "auth.register.loginLink": "Login",
+
+  // auth: gate (shown in place of a form/action when logged out)
+  "auth.gate.title": "Login required for this step",
+  "auth.gate.body": "Browsing Culture Atlas is free for everyone. Login or create an account to continue with this action.",
+  "auth.gate.cta": "Login to continue",
 };
 
 const id: Dict = {
@@ -250,11 +301,31 @@ const id: Dict = {
   // experiences
   "experiences.eyebrow": "Pengalaman Lokal",
   "experiences.title": "Pelajari kerajinannya, bukan sekadar menonton",
+  "experience.detail.duration": "Durasi",
+  "experience.detail.groupSize": "Jumlah peserta",
+  "experience.detail.howToJoin": "Cara ikut",
+  "reservation.title": "Ajukan reservasi pengalaman ini",
+  "reservation.date": "Tanggal yang diinginkan",
+  "reservation.participants": "Jumlah peserta",
+  "reservation.note": "Catatan (opsional)",
+  "reservation.submit": "Kirim Permintaan Reservasi",
+  "reservation.submitting": "Mengirim permintaan…",
+  "reservation.success.title": "Permintaan reservasi diterima",
+  "reservation.success.body": "Tim lokal akan menghubungi lewat email untuk konfirmasi jadwal.",
 
   // marketplace
   "marketplace.eyebrow": "Marketplace Lokal",
   "marketplace.title": "Dibeli langsung dari pembuatnya, tanpa perantara",
   "marketplace.clearFilter": "Hapus filter",
+  "marketplace.order.title": "Pesan produk ini",
+  "marketplace.order.quantity": "Jumlah",
+  "marketplace.order.address": "Alamat pengiriman",
+  "marketplace.order.address.ph": "Alamat lengkap, kota, kode pos",
+  "marketplace.order.note": "Catatan (opsional)",
+  "marketplace.order.submit": "Kirim Permintaan Pesanan",
+  "marketplace.order.submitting": "Mengirim pesanan…",
+  "marketplace.order.success.title": "Permintaan pesanan diterima",
+  "marketplace.order.success.body": "Pembuat produk akan menghubungi lewat email atau telepon untuk konfirmasi pembayaran dan pengiriman.",
 
   // destination detail
   "dd.history": "Sejarah",
@@ -287,6 +358,37 @@ const id: Dict = {
   "ambassador.form.submit": "Kirim Pendaftaran",
   "ambassador.form.submitting": "Mengirim…",
   "ambassador.form.genericError": "Terjadi kesalahan. Silakan coba lagi sebentar lagi.",
+
+  // auth (shared)
+  "auth.email": "Email",
+  "auth.password": "Kata sandi",
+  "auth.fullName": "Nama lengkap",
+  "auth.error.generic": "Terjadi kesalahan. Silakan coba lagi sebentar lagi.",
+  "auth.nav.login": "Masuk",
+  "auth.nav.logout": "Keluar",
+
+  // auth: login
+  "auth.login.eyebrow": "Akun",
+  "auth.login.title": "Masuk ke akunmu",
+  "auth.login.subtitle": "Masuk untuk memesan produk, mendaftar jadi Ambassador, atau booking Local Experience.",
+  "auth.login.submit": "Masuk",
+  "auth.login.submitting": "Sedang masuk…",
+  "auth.login.noAccount": "Belum punya akun?",
+  "auth.login.registerLink": "Daftar",
+
+  // auth: register
+  "auth.register.eyebrow": "Akun",
+  "auth.register.title": "Buat akun baru",
+  "auth.register.subtitle": "Satu akun untuk memesan produk, mendaftar jadi Ambassador, dan booking Local Experience.",
+  "auth.register.submit": "Buat akun",
+  "auth.register.submitting": "Membuat akun…",
+  "auth.register.haveAccount": "Sudah punya akun?",
+  "auth.register.loginLink": "Masuk",
+
+  // auth: gate
+  "auth.gate.title": "Perlu masuk untuk langkah ini",
+  "auth.gate.body": "Menjelajahi Culture Atlas gratis untuk semua orang. Masuk atau buat akun dulu untuk melanjutkan aksi ini.",
+  "auth.gate.cta": "Masuk untuk lanjut",
 };
 
 export const messages: Record<Lang, Dict> = { en, id };
