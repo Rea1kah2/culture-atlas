@@ -18,12 +18,11 @@ export function SiteNav() {
     <header className="sticky top-0 z-40 border-b border-ca-ink/15 bg-ca-paper/95 backdrop-blur">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <Link to="/" className="flex items-center gap-2.5">
-          <span
-            aria-hidden
-            className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-ca-ink font-display text-xs font-bold"
-          >
-            CA
-          </span>
+          <img
+            src="/assets/logo-icon.png"
+            alt="Culture Atlas"
+            className="h-8 w-8 shrink-0 object-contain"
+          />
           <span className="font-display text-lg font-bold tracking-tight">Culture Atlas</span>
         </Link>
         <div className="hidden items-center gap-7 md:flex">

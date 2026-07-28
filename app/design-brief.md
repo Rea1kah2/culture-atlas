@@ -42,20 +42,23 @@ reads "researched dossier," not decorative. No serif: nothing here is
 heritage-luxury-editorial in the sense the recipe requires for a serif
 justification.
 
-## Tier-1 technique — DEVIATION DOCUMENTED
-Selected: **D3 — Kinetic type opener** (`wow-catalog.md`) — the hero headline
-"Discover Indonesia Beyond the Crowds" builds in with per-word stagger over an
-illustrated archipelago silhouette (hand-authored inline SVG, gold coordinate
-pins marking the seed destinations), not a static image.
+## Tier-1 technique — REVISED (real photo hero, superseding the original D3 note)
+Current: kinetic type opener (`wow-catalog.md` D3) layered directly over a
+real, full-bleed hero photograph (Wae Rebo, Flores — CC BY 4.0, Jakub Hałun),
+with a navy gradient scrim for legibility. The headline ("Discover Hidden
+Cultures Across Indonesia") and supporting copy are centered over the photo;
+the CTA is a frosted-glass compass-medallion card (see CTA inventory #1)
+floating in that centered stack. The illustrated archipelago map (still
+hand-authored inline SVG, gold pins on seed destinations) moved to its own
+section directly below the hero rather than being the hero background itself.
 
-Why D3 and not the more obvious B1 (cutout parallax hero photo): the site's
-photography is real, licensed Wikimedia Commons photography of eight NAMED
-villages (see revised asset plan below), not Higgsfield-generated imagery —
-compositing a real photo of one specific real place into an abstract
-cutout-parallax hero risks misrepresenting it. D3 keeps the hero honest
-(illustrated map, not a specific place standing in for "Indonesia") while
-still being fully interactive, screenshot-safe, and reduced-motion-safe. This
-is the PERMANENT hero decision, not a placeholder awaiting an upgrade.
+This supersedes the original launch decision to use the illustrated map AS
+the hero background (documented then as: real photography of one named
+village risked misrepresenting "Indonesia" in an abstract hero). The user
+later asked for the hero to use a real photo directly, so the map now does
+its own honest job as a standalone "here's where these are" section, and the
+photo does its own job of making a strong first impression — both roles kept,
+neither faking the other.
 
 Anti-convergence ledger: no previous build in this chat, so all six identity
 axes are derived fresh from the brief's material world (batik/lontar/turmeric
@@ -65,7 +68,7 @@ corner language).
 
 ## Section plan (Landing, 8 sections, 7 distinct layout families, no
 consecutive repeats)
-1. Hero — kinetic type + illustrated archipelago map (hero family)
+1. Hero — kinetic type over a real hero photograph (hero family)
 2. "Kenapa CultureAtlas" — 3 field-note reasons in a horizontal scroll strip
 3. Featured hidden destinations — asymmetric bento grid from live D1 data
 4. "The Atlas System" — filter categories explained, split text+illustration
@@ -102,17 +105,20 @@ avoids the credits/subscription problem entirely.
   stand-in for a future generated set (icons for an abstract filter/UI
   system don't have a "real photo" equivalent, and the illustrated style
   reads intentional next to the real destination photography).
-- Logo/monogram: shipped now as a typographic wordmark (Cabinet Grotesk "CA"
-  monogram in a stamped circle) — pending a generated refinement pass.
+- Logo/monogram: the user's real logo icon (`public/assets/logo-icon.png` —
+  gradient blue circle with globe/Indonesia silhouette, temple roofs, wave)
+  replaces the earlier typographic "CA" placeholder in the nav. Permanent
+  asset now, not a stand-in.
 - OG/cover image: pending (`app-cover.md` requires a real generated cover;
   `app-meta.json` fields stay null until then — the site is deploy-only per
   the user's choice, not published to the feed, so this does not block ship).
 
 ## CTA inventory (bespoke chrome — one component + one interaction identity
 each, zero shared button class)
-1. **Explore Destinations** (landing primary) — circular wax-stamp button:
-   ink-filled gold circle that presses down (scale + slight rotate) on
-   press/hover, like a document stamp.
+1. **Explore Destinations** (landing primary) — frosted-glass compass
+   medallion card: floats centered over the hero photo, gold-ringed compass
+   icon above the label, thin gold underline draws in beneath a short subtext
+   line on hover, whole card lifts and its border solidifies.
 2. **View Destination** (destination cards) — text link, underline draws in
    from the left + arrow glyph slides right on hover.
 3. **Reserve Experience** (experience cards/detail) — ticket-stub button:

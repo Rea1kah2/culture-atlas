@@ -6,7 +6,7 @@ import { KineticHeadline } from "../components/site/kinetic-headline";
 import { IndonesiaMap } from "../components/site/indonesia-map";
 import { DestinationCard } from "../components/site/destination-card";
 import { FieldPlate } from "../components/site/field-plate";
-import { StampButton } from "../components/site/cta/stamp-button";
+import { CompassMedallionButton } from "../components/site/cta/compass-medallion-button";
 import { UnderlineLink } from "../components/site/cta/underline-link";
 import { StoryArrowButton } from "../components/site/cta/story-arrow-button";
 import {
@@ -85,7 +85,7 @@ function Landing() {
           {/* Navy gradient scrim so the headline stays legible over the photo. */}
           <div className="absolute inset-0 bg-gradient-to-t from-ca-ink via-ca-ink/70 to-ca-ink/40" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-20 md:pb-28 md:pt-28">
+        <div className="relative mx-auto flex max-w-7xl flex-col items-center px-6 pb-20 pt-20 text-center md:pb-28 md:pt-28">
           <span className="ca-eyebrow text-ca-paper/80">{t("hero.eyebrow")}</span>
           <KineticHeadline
             text={t("hero.headline")}
@@ -94,8 +94,8 @@ function Landing() {
           <p className="mt-6 max-w-xl text-base leading-relaxed text-ca-paper/85">
             {t("hero.subcopy")}
           </p>
-          <div className="mt-8">
-            <StampButton>{t("hero.cta")}</StampButton>
+          <div className="mt-10">
+            <CompassMedallionButton label={t("hero.cta")} subtext={t("hero.cta.subtext")} />
           </div>
         </div>
         <a
