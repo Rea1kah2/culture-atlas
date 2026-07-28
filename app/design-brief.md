@@ -48,16 +48,16 @@ real, full-bleed hero photograph (Wae Rebo, Flores — CC BY 4.0, Jakub Hałun),
 with a navy gradient scrim for legibility. The headline ("Discover Hidden
 Cultures Across Indonesia") and supporting copy are centered over the photo;
 the CTA is a frosted-glass compass-medallion card (see CTA inventory #1)
-floating in that centered stack. The illustrated archipelago map (still
-hand-authored inline SVG, gold pins on seed destinations) moved to its own
+floating in that centered stack. The archipelago map (real coastline data,
+gold pins on seed destinations — see "Asset plan" below) moved to its own
 section directly below the hero rather than being the hero background itself.
 
-This supersedes the original launch decision to use the illustrated map AS
-the hero background (documented then as: real photography of one named
-village risked misrepresenting "Indonesia" in an abstract hero). The user
-later asked for the hero to use a real photo directly, so the map now does
-its own honest job as a standalone "here's where these are" section, and the
-photo does its own job of making a strong first impression — both roles kept,
+This supersedes the original launch decision to use the map AS the hero
+background (documented then as: real photography of one named village
+risked misrepresenting "Indonesia" in an abstract hero). The user later
+asked for the hero to use a real photo directly, so the map now does its own
+honest job as a standalone "here's where these are" section, and the photo
+does its own job of making a strong first impression — both roles kept,
 neither faking the other.
 
 Anti-convergence ledger: no previous build in this chat, so all six identity
@@ -96,10 +96,15 @@ avoids the credits/subscription problem entirely.
 - 2 of 8 (Kajang Ammatoa, Margamulya) have no properly-licensed photo
   available on Commons and keep the illustrated field-plate placeholder
   rather than a mismatched stock substitute standing in for the wrong place.
-- Hero: still the illustrated archipelago SVG + kinetic type (D3) — this
-  stays as the permanent Tier-1 mechanic, not a placeholder; it was never
-  meant to be replaced by a generated photo once the credits blocker turned
-  out to be a real-photography decision instead.
+- Hero: real hero photograph (Wae Rebo) + kinetic type (D3) — see the
+  "Tier-1 technique" section above for the full, current description; this
+  bullet used to say "illustrated archipelago SVG" from an earlier revision
+  and was left stale after the hero moved to a real photo.
+- Archipelago map (its own section, below the hero): geographically accurate
+  island silhouettes, not the earlier hand-drawn blobs — simplified from
+  Natural Earth 1:50m boundary data and projected with the same math used
+  for the destination pins (`components/site/indonesia-map.tsx`), so pins
+  and coastlines share one coordinate system.
 - Icon set: hand-authored inline SVG (stamp/compass/leaf motif, single
   stroke weight, ink color) — this is the PERMANENT icon system now, not a
   stand-in for a future generated set (icons for an abstract filter/UI
