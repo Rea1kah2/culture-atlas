@@ -178,6 +178,11 @@ const en: Dict = {
   "auth.error.generic": "Something went wrong. Please try again shortly.",
   "auth.nav.login": "Login",
   "auth.nav.logout": "Logout",
+  // Brand tagline stays identical in both languages -- it is part of the
+  // logo lockup, like the "Culture Atlas" name itself.
+  "auth.brand.tagline": "Explore · Understand · Preserve",
+  "auth.brand.description":
+    "Culture Atlas is a web-based digital platform built as a hub for exploring Indonesia's cultural destinations, introducing the cultural potential of every region while supporting a more even and sustainable spread of tourism.",
 
   // auth: login
   "auth.login.eyebrow": "Account",
@@ -366,6 +371,9 @@ const id: Dict = {
   "auth.error.generic": "Terjadi kesalahan. Silakan coba lagi sebentar lagi.",
   "auth.nav.login": "Masuk",
   "auth.nav.logout": "Keluar",
+  "auth.brand.tagline": "Explore · Understand · Preserve",
+  "auth.brand.description":
+    "Culture Atlas adalah platform digital berbasis web yang dirancang sebagai pusat eksplorasi destinasi budaya Indonesia untuk memperkenalkan potensi budaya dari seluruh daerah sekaligus mendukung pemerataan pariwisata secara berkelanjutan.",
 
   // auth: login
   "auth.login.eyebrow": "Akun",

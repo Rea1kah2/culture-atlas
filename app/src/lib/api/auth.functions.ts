@@ -13,6 +13,11 @@ import {
 
 export type SessionUser = { id: number; email: string; fullName: string };
 
+// Surfaced when AUTH_PEPPER is missing. Deliberately fails closed rather than
+// falling back to an unpeppered hash, which would silently weaken security
+// and produce hashes that stop verifying once the secret is configured.
+const CONFIG_ERROR = "Konfigurasi autentikasi belum lengkap di server. Hubungi pengelola situs.";
+
 const COOKIE_OPTS = {
   httpOnly: true,
   secure: true,
@@ -39,9 +44,12 @@ const registerSchema = z.object({
 export const registerUser = createServerFn({ method: "POST" })
   .inputValidator(registerSchema)
   .handler(async ({ data }) => {
-    const { DB } = bindings();
+    const { DB, AUTH_PEPPER } = bindings();
     if (!DB) {
       return { ok: false as const, error: "Database tidak aktif di lingkungan ini." };
+    }
+    if (!AUTH_PEPPER) {
+      return { ok: false as const, error: CONFIG_ERROR };
     }
 
     const existing = await DB.prepare(`SELECT id FROM users WHERE email = ?`)
@@ -51,7 +59,7 @@ export const registerUser = createServerFn({ method: "POST" })
       return { ok: false as const, error: "Email ini sudah terdaftar. Coba masuk (login)." };
     }
 
-    const { hash, salt } = await hashPassword(data.password);
+    const { hash, salt } = await hashPassword(data.password, AUTH_PEPPER);
     const result = await DB.prepare(
       `INSERT INTO users (email, password_hash, password_salt, full_name) VALUES (?, ?, ?, ?)`,
     )
@@ -71,9 +79,12 @@ const loginSchema = z.object({
 export const loginUser = createServerFn({ method: "POST" })
   .inputValidator(loginSchema)
   .handler(async ({ data }) => {
-    const { DB } = bindings();
+    const { DB, AUTH_PEPPER } = bindings();
     if (!DB) {
       return { ok: false as const, error: "Database tidak aktif di lingkungan ini." };
+    }
+    if (!AUTH_PEPPER) {
+      return { ok: false as const, error: CONFIG_ERROR };
     }
 
     const user = await DB.prepare(
@@ -82,7 +93,10 @@ export const loginUser = createServerFn({ method: "POST" })
       .bind(data.email)
       .first<{ id: number; password_hash: string; password_salt: string }>();
 
-    if (!user || !(await verifyPassword(data.password, user.password_hash, user.password_salt))) {
+    if (
+      !user ||
+      !(await verifyPassword(data.password, user.password_hash, user.password_salt, AUTH_PEPPER))
+    ) {
       return { ok: false as const, error: "Email atau kata sandi salah." };
     }
 

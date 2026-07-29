@@ -24,6 +24,11 @@ type AppEnv = {
   CONTAINER?: DurableObjectNamespace;
   HF_ENV?: string;
   APP_SLUG?: string;
+  // Server-side password pepper (see lib/auth.server.ts). Set as a Cloudflare
+  // secret (`wrangler secret put AUTH_PEPPER`), never committed; locally it
+  // comes from app/.dev.vars. Deliberately NOT given a fallback value — a
+  // missing pepper must fail loudly, not silently produce weaker hashes.
+  AUTH_PEPPER?: string;
 };
 
 export function bindings(): AppEnv {

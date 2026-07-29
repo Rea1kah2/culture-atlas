@@ -6,6 +6,7 @@ import { z } from "zod";
 
 import { SiteNav } from "../components/site/nav";
 import { SiteFooter } from "../components/site/footer";
+import { AuthBrandPanel } from "../components/site/auth-brand-panel";
 import { VisaStampButton } from "../components/site/cta/visa-stamp-button";
 import { useT } from "../lib/i18n/context";
 import { loginUser } from "../lib/api/auth.functions";
@@ -72,47 +73,51 @@ function Login() {
     <div className="ca-motion">
       <SiteNav />
       <section className="px-6 py-16">
-        <div className="mx-auto max-w-md">
-          <span className="ca-eyebrow">{t("auth.login.eyebrow")}</span>
-          <h1 className="mt-3 font-display text-3xl font-bold md:text-4xl">
-            {t("auth.login.title")}
-          </h1>
-          <p className="mt-3 text-ca-ink-soft">{t("auth.login.subtitle")}</p>
+        {/* Panel first in DOM order = panel on the LEFT, form on the right. */}
+        <div className="mx-auto grid max-w-5xl items-center gap-16 lg:grid-cols-2">
+          <AuthBrandPanel />
+          <div className="mx-auto w-full max-w-md lg:mx-0">
+            <span className="ca-eyebrow">{t("auth.login.eyebrow")}</span>
+            <h1 className="mt-3 font-display text-3xl font-bold md:text-4xl">
+              {t("auth.login.title")}
+            </h1>
+            <p className="mt-3 text-ca-ink-soft">{t("auth.login.subtitle")}</p>
 
-          <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-8 space-y-6">
-            <Field label={t("auth.email")} error={errors.email?.message}>
-              <input
-                {...register("email")}
-                type="email"
-                className="ca-input"
-                placeholder="nama@email.com"
-              />
-            </Field>
-            <Field label={t("auth.password")} error={errors.password?.message}>
-              <input {...register("password")} type="password" className="ca-input" />
-            </Field>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-8 space-y-6">
+              <Field label={t("auth.email")} error={errors.email?.message}>
+                <input
+                  {...register("email")}
+                  type="email"
+                  className="ca-input"
+                  placeholder="nama@email.com"
+                />
+              </Field>
+              <Field label={t("auth.password")} error={errors.password?.message}>
+                <input {...register("password")} type="password" className="ca-input" />
+              </Field>
 
-            {status === "error" && errorMessage && (
-              <p className="border border-ca-error/40 bg-ca-paper-bright px-4 py-3 text-sm text-ca-error">
-                {errorMessage}
-              </p>
-            )}
+              {status === "error" && errorMessage && (
+                <p className="border border-ca-error/40 bg-ca-paper-bright px-4 py-3 text-sm text-ca-error">
+                  {errorMessage}
+                </p>
+              )}
 
-            <VisaStampButton type="submit" disabled={status === "submitting"}>
-              {status === "submitting" ? t("auth.login.submitting") : t("auth.login.submit")}
-            </VisaStampButton>
-          </form>
+              <VisaStampButton type="submit" disabled={status === "submitting"}>
+                {status === "submitting" ? t("auth.login.submitting") : t("auth.login.submit")}
+              </VisaStampButton>
+            </form>
 
-          <p className="mt-6 text-sm text-ca-ink-soft">
-            {t("auth.login.noAccount")}{" "}
-            <Link
-              to="/register"
-              search={{ redirect: search.redirect }}
-              className="font-semibold text-ca-ink underline"
-            >
-              {t("auth.login.registerLink")}
-            </Link>
-          </p>
+            <p className="mt-6 text-sm text-ca-ink-soft">
+              {t("auth.login.noAccount")}{" "}
+              <Link
+                to="/register"
+                search={{ redirect: search.redirect }}
+                className="font-semibold text-ca-ink underline"
+              >
+                {t("auth.login.registerLink")}
+              </Link>
+            </p>
+          </div>
         </div>
       </section>
       <SiteFooter />
