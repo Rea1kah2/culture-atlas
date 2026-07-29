@@ -183,6 +183,9 @@ const en: Dict = {
   "auth.brand.tagline": "Explore · Understand · Preserve",
   "auth.brand.description":
     "Culture Atlas is a web-based digital platform built as a hub for exploring Indonesia's cultural destinations, introducing the cultural potential of every region while supporting a more even and sustainable spread of tourism.",
+  "auth.brand.stat.destinations": "Destinations",
+  "auth.brand.stat.provinces": "Provinces",
+  "auth.brand.stat.stories": "Stories",
 
   // auth: login
   "auth.login.eyebrow": "Account",
@@ -206,6 +209,61 @@ const en: Dict = {
   "auth.gate.title": "Login required for this step",
   "auth.gate.body": "Browsing Culture Atlas is free for everyone. Login or create an account to continue with this action.",
   "auth.gate.cta": "Login to continue",
+
+  // auth: password field + strength meter
+  "auth.password.show": "Show password",
+  "auth.password.hide": "Hide password",
+  "auth.password.confirm": "Re-enter password",
+  "auth.password.mismatch": "Passwords do not match",
+  "auth.strength.label": "Password strength",
+  "auth.strength.weak": "Weak",
+  "auth.strength.medium": "Medium",
+  "auth.strength.strong": "Strong",
+  "auth.strength.add": "add",
+  "auth.strength.need.length": "8+ characters",
+  "auth.strength.need.upper": "an uppercase letter",
+  "auth.strength.need.digit": "a number",
+  "auth.strength.need.symbol": "a symbol",
+
+  // auth: welcome dialog shown once, right after login/register
+  "auth.welcome.login.title": "Welcome back",
+  "auth.welcome.login.body":
+    "You're logged in. You can now order products, apply as an Ambassador, and reserve Local Experiences.",
+  "auth.welcome.register.title": "Welcome to Culture Atlas",
+  "auth.welcome.register.body":
+    "Your account is ready. You can now order products, apply as an Ambassador, and reserve Local Experiences.",
+  "auth.welcome.cta": "Continue",
+
+  // auth: logout confirmation
+  "auth.logout.confirm.title": "Log out of your account?",
+  "auth.logout.confirm.body":
+    "You can keep browsing Culture Atlas without an account, but you'll need to log in again to order, reserve, or apply.",
+  "auth.logout.confirm.yes": "Log out",
+  "auth.logout.confirm.cancel": "Cancel",
+  "auth.nav.account": "Your account",
+
+  // account page
+  "account.eyebrow": "Account",
+  "account.title": "Your account",
+  "account.subtitle": "Manage your profile and review what you've ordered and reserved.",
+  "account.profile.title": "Profile",
+  "account.profile.save": "Save changes",
+  "account.profile.saving": "Saving…",
+  "account.profile.saved": "Profile updated.",
+  "account.email.note": "Email can't be changed for now.",
+  "account.memberSince": "Member since",
+  "account.orders.title": "Your orders",
+  "account.orders.empty": "You haven't ordered anything from the marketplace yet.",
+  "account.orders.qty": "Qty",
+  "account.reservations.title": "Your reservations",
+  "account.reservations.empty": "You haven't reserved a Local Experience yet.",
+  "account.reservations.date": "Preferred date",
+  "account.reservations.people": "Participants",
+  "account.status.pending": "Pending",
+  "account.status.contacted": "Contacted",
+  "account.status.fulfilled": "Fulfilled",
+  "account.status.confirmed": "Confirmed",
+  "account.status.completed": "Completed",
 };
 
 const id: Dict = {
@@ -374,6 +432,9 @@ const id: Dict = {
   "auth.brand.tagline": "Explore · Understand · Preserve",
   "auth.brand.description":
     "Culture Atlas adalah platform digital berbasis web yang dirancang sebagai pusat eksplorasi destinasi budaya Indonesia untuk memperkenalkan potensi budaya dari seluruh daerah sekaligus mendukung pemerataan pariwisata secara berkelanjutan.",
+  "auth.brand.stat.destinations": "Destinasi",
+  "auth.brand.stat.provinces": "Provinsi",
+  "auth.brand.stat.stories": "Cerita",
 
   // auth: login
   "auth.login.eyebrow": "Akun",
@@ -397,6 +458,61 @@ const id: Dict = {
   "auth.gate.title": "Perlu masuk untuk langkah ini",
   "auth.gate.body": "Menjelajahi Culture Atlas gratis untuk semua orang. Masuk atau buat akun dulu untuk melanjutkan aksi ini.",
   "auth.gate.cta": "Masuk untuk lanjut",
+
+  // auth: password field + strength meter
+  "auth.password.show": "Tampilkan kata sandi",
+  "auth.password.hide": "Sembunyikan kata sandi",
+  "auth.password.confirm": "Ulangi kata sandi",
+  "auth.password.mismatch": "Kata sandi tidak sama",
+  "auth.strength.label": "Kekuatan kata sandi",
+  "auth.strength.weak": "Lemah",
+  "auth.strength.medium": "Sedang",
+  "auth.strength.strong": "Kuat",
+  "auth.strength.add": "tambahkan",
+  "auth.strength.need.length": "8+ karakter",
+  "auth.strength.need.upper": "huruf besar",
+  "auth.strength.need.digit": "angka",
+  "auth.strength.need.symbol": "simbol",
+
+  // auth: welcome dialog shown once, right after login/register
+  "auth.welcome.login.title": "Selamat datang kembali",
+  "auth.welcome.login.body":
+    "Kamu sudah masuk. Sekarang kamu bisa memesan produk, mendaftar jadi Ambassador, dan booking Local Experience.",
+  "auth.welcome.register.title": "Selamat datang di Culture Atlas",
+  "auth.welcome.register.body":
+    "Akunmu sudah siap. Sekarang kamu bisa memesan produk, mendaftar jadi Ambassador, dan booking Local Experience.",
+  "auth.welcome.cta": "Lanjutkan",
+
+  // auth: logout confirmation
+  "auth.logout.confirm.title": "Keluar dari akunmu?",
+  "auth.logout.confirm.body":
+    "Kamu tetap bisa menjelajahi Culture Atlas tanpa akun, tapi perlu masuk lagi untuk memesan, booking, atau mendaftar.",
+  "auth.logout.confirm.yes": "Keluar",
+  "auth.logout.confirm.cancel": "Batal",
+  "auth.nav.account": "Akun kamu",
+
+  // account page
+  "account.eyebrow": "Akun",
+  "account.title": "Akun kamu",
+  "account.subtitle": "Kelola profilmu dan lihat kembali pesanan serta reservasi yang sudah dibuat.",
+  "account.profile.title": "Profil",
+  "account.profile.save": "Simpan perubahan",
+  "account.profile.saving": "Menyimpan…",
+  "account.profile.saved": "Profil berhasil diperbarui.",
+  "account.email.note": "Email belum bisa diubah untuk saat ini.",
+  "account.memberSince": "Bergabung sejak",
+  "account.orders.title": "Pesanan kamu",
+  "account.orders.empty": "Kamu belum memesan apa pun dari marketplace.",
+  "account.orders.qty": "Jumlah",
+  "account.reservations.title": "Reservasi kamu",
+  "account.reservations.empty": "Kamu belum booking Local Experience.",
+  "account.reservations.date": "Tanggal diinginkan",
+  "account.reservations.people": "Peserta",
+  "account.status.pending": "Menunggu",
+  "account.status.contacted": "Dihubungi",
+  "account.status.fulfilled": "Selesai",
+  "account.status.confirmed": "Dikonfirmasi",
+  "account.status.completed": "Selesai",
 };
 
 export const messages: Record<Lang, Dict> = { en, id };

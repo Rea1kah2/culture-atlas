@@ -15,6 +15,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as AmbassadorRouteImport } from './routes/ambassador'
+import { Route as AccountRouteImport } from './routes/account'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StoriesIndexRouteImport } from './routes/stories/index'
 import { Route as MarketplaceIndexRouteImport } from './routes/marketplace/index'
@@ -52,6 +53,11 @@ const ExploreRoute = ExploreRouteImport.update({
 const AmbassadorRoute = AmbassadorRouteImport.update({
   id: '/ambassador',
   path: '/ambassador',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -97,6 +103,7 @@ const DestinationsSlugRoute = DestinationsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
   '/ambassador': typeof AmbassadorRoute
   '/explore': typeof ExploreRoute
   '/login': typeof LoginRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
   '/ambassador': typeof AmbassadorRoute
   '/explore': typeof ExploreRoute
   '/login': typeof LoginRoute
@@ -130,6 +138,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
   '/ambassador': typeof AmbassadorRoute
   '/explore': typeof ExploreRoute
   '/login': typeof LoginRoute
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/account'
     | '/ambassador'
     | '/explore'
     | '/login'
@@ -164,6 +174,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/account'
     | '/ambassador'
     | '/explore'
     | '/login'
@@ -180,6 +191,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/account'
     | '/ambassador'
     | '/explore'
     | '/login'
@@ -197,6 +209,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccountRoute: typeof AccountRoute
   AmbassadorRoute: typeof AmbassadorRoute
   ExploreRoute: typeof ExploreRoute
   LoginRoute: typeof LoginRoute
@@ -254,6 +267,13 @@ declare module '@tanstack/react-router' {
       path: '/ambassador'
       fullPath: '/ambassador'
       preLoaderRoute: typeof AmbassadorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -317,6 +337,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccountRoute: AccountRoute,
   AmbassadorRoute: AmbassadorRoute,
   ExploreRoute: ExploreRoute,
   LoginRoute: LoginRoute,

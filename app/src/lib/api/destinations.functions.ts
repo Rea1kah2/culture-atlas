@@ -107,3 +107,25 @@ export const listMapPins = createServerFn({ method: "GET" }).handler(async () =>
 
   return { pins: result.results ?? [] };
 });
+
+export type SiteStats = { destinations: number; provinces: number; stories: number };
+
+// Counts shown on the auth pages' brand panel. Read live rather than
+// hardcoded so the numbers can't quietly go stale as the atlas grows (two
+// destinations were added the same week this shipped). Returns null on any
+// failure so the panel can simply omit the stats row instead of the whole
+// login page breaking over decorative content.
+export const getSiteStats = createServerFn({ method: "GET" }).handler(
+  async (): Promise<{ stats: SiteStats | null }> => {
+    const { DB } = bindings();
+    if (!DB) return { stats: null };
+
+    const row = await DB.prepare(
+      `SELECT (SELECT count(*) FROM destinations) AS destinations,
+              (SELECT count(DISTINCT province) FROM destinations) AS provinces,
+              (SELECT count(*) FROM cultural_stories) AS stories`,
+    ).first<SiteStats>();
+
+    return { stats: row ?? null };
+  },
+);

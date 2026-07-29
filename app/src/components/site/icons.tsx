@@ -112,3 +112,51 @@ export function IconFoldArrow(props: IconProps) {
     </svg>
   );
 }
+
+export function IconEye(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+export function IconEyeOff(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M9.9 5.8A9.6 9.6 0 0 1 12 5.5c6 0 9.5 6.5 9.5 6.5a17 17 0 0 1-3.2 3.9" />
+      <path d="M6.5 7.6A17.3 17.3 0 0 0 2.5 12S6 18.5 12 18.5c1.5 0 2.8-.4 4-1" />
+      <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+      <path d="M4 4l16 16" />
+    </svg>
+  );
+}
+
+export function IconUser(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <circle cx="12" cy="8" r="3.5" />
+      <path d="M5 19.5c0-3.3 3.1-5.5 7-5.5s7 2.2 7 5.5" />
+    </svg>
+  );
+}
+
+export function IconCheckCircle(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M8 12.2l2.6 2.6L16 9.4" />
+    </svg>
+  );
+}
+
+export function IconLogout(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M14 5H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8" />
+      <path d="M17 8.5l3.5 3.5-3.5 3.5" />
+      <path d="M20.5 12H10" />
+    </svg>
+  );
+}

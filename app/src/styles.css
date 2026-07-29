@@ -45,6 +45,12 @@
   /* Functional-only, never used as a second brand accent: form validation
    * errors need their own semantic color for legibility. */
   --color-ca-error: #c0392b;
+  /* Same rule as --color-ca-error: status-only, never decorative. These two
+   * complete the weak/medium/strong scale on the password strength meter
+   * (error red -> warn amber -> success green), picked for contrast against
+   * the light paper surfaces they sit on. */
+  --color-ca-warn: #b26a00;
+  --color-ca-success: #1e7d52;
 
   --font-display: "Cabinet Grotesk", "Inter Tight", system-ui, sans-serif;
   --font-body: "Inter Tight", system-ui, sans-serif;
@@ -93,6 +99,14 @@
     padding: 0.75rem 1rem;
     color: var(--color-ca-ink);
     font-family: var(--font-body);
+  }
+
+  /* For inputs with a button sitting inside them (the password eye toggle).
+   * Must be declared AFTER .ca-input: that rule sets `padding` as a
+   * shorthand, so a Tailwind `pr-*` utility in the same layer can lose to it
+   * depending on emit order. This wins deterministically. */
+  .ca-input-affix {
+    padding-right: 3rem;
   }
 
   .ca-input::placeholder {

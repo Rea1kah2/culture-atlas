@@ -68,7 +68,9 @@ export const registerUser = createServerFn({ method: "POST" })
 
     const userId = result.meta.last_row_id as number;
     await createSessionCookie(userId, DB);
-    return { ok: true as const };
+    // fullName travels back so the client can greet the user by name in the
+    // welcome dialog without a second round trip.
+    return { ok: true as const, fullName: data.fullName };
   });
 
 const loginSchema = z.object({
@@ -88,10 +90,15 @@ export const loginUser = createServerFn({ method: "POST" })
     }
 
     const user = await DB.prepare(
-      `SELECT id, password_hash, password_salt FROM users WHERE email = ?`,
+      `SELECT id, password_hash, password_salt, full_name FROM users WHERE email = ?`,
     )
       .bind(data.email)
-      .first<{ id: number; password_hash: string; password_salt: string }>();
+      .first<{
+        id: number;
+        password_hash: string;
+        password_salt: string;
+        full_name: string;
+      }>();
 
     if (
       !user ||
@@ -101,7 +108,7 @@ export const loginUser = createServerFn({ method: "POST" })
     }
 
     await createSessionCookie(user.id, DB);
-    return { ok: true as const };
+    return { ok: true as const, fullName: user.full_name };
   });
 
 export const logoutUser = createServerFn({ method: "POST" }).handler(async () => {
