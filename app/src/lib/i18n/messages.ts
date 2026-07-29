@@ -49,7 +49,11 @@ const en: Dict = {
   "hero.subcopy":
     "A field atlas of hidden villages, living crafts, and forgotten festivals across the archipelago, catalogued with the communities who keep them alive.",
   "hero.cta": "Explore Destinations",
-  "hero.cta.subtext": "8 hidden destinations, catalogued",
+  // Split rather than one hardcoded string with a number baked in ("8 hidden
+  // destinations") -- that went stale within a week as the atlas grew.
+  // Composed in JSX with the live count from getSiteStats() instead.
+  "hero.cta.subtext.suffix": "hidden destinations, catalogued",
+  "hero.cta.subtext.fallback": "Hidden destinations, catalogued",
   "hero.photoCredit": "Photo",
 
   // landing - why
@@ -301,7 +305,8 @@ const id: Dict = {
   "hero.subcopy":
     "Atlas lapangan berisi desa tersembunyi, kerajinan yang masih hidup, dan festival yang nyaris terlupakan di seluruh nusantara, didokumentasikan bersama komunitas yang menjaganya.",
   "hero.cta": "Jelajahi Destinasi",
-  "hero.cta.subtext": "8 destinasi tersembunyi, siap dijelajahi",
+  "hero.cta.subtext.suffix": "destinasi tersembunyi, siap dijelajahi",
+  "hero.cta.subtext.fallback": "Destinasi tersembunyi, siap dijelajahi",
   "hero.photoCredit": "Foto",
 
   // landing - why

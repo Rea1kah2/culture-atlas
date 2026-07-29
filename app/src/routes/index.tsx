@@ -19,19 +19,24 @@ import {
 } from "../components/site/icons";
 import { useT } from "../lib/i18n/context";
 
-import { listFeaturedDestinations, listMapPins } from "../lib/api/destinations.functions";
+import {
+  listFeaturedDestinations,
+  listMapPins,
+  getSiteStats,
+} from "../lib/api/destinations.functions";
 import { listStories } from "../lib/api/stories.functions";
 import { listExperiences } from "../lib/api/experiences.functions";
 import { listProducts } from "../lib/api/marketplace.functions";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
-    const [featured, pins, stories, experiences, products] = await Promise.all([
+    const [featured, pins, stories, experiences, products, siteStats] = await Promise.all([
       listFeaturedDestinations(),
       listMapPins(),
       listStories(),
       listExperiences(),
       listProducts({ data: {} }),
+      getSiteStats(),
     ]);
     return {
       destinations: featured.destinations,
@@ -39,6 +44,7 @@ export const Route = createFileRoute("/")({
       story: stories.stories[0] ?? null,
       experience: experiences.experiences[0] ?? null,
       product: products.products[0] ?? null,
+      stats: siteStats.stats,
     };
   },
   component: Landing,
@@ -61,8 +67,16 @@ const HERO_CREDIT = {
 };
 
 function Landing() {
-  const { destinations, pins, story, experience, product } = Route.useLoaderData();
+  const { destinations, pins, story, experience, product, stats } = Route.useLoaderData();
   const t = useT();
+
+  // t() has no interpolation support, so the live count is composed here in
+  // JSX rather than baked into an i18n string -- the same pattern already
+  // used by AuthBrandPanel's stat row. Falls back to a count-less phrase if
+  // the stats query ever fails, rather than hiding the CTA's subtext.
+  const heroSubtext = stats
+    ? `${stats.destinations} ${t("hero.cta.subtext.suffix")}`
+    : t("hero.cta.subtext.fallback");
 
   const whyCards = [
     { icon: IconScroll, title: t("why.c1.title"), body: t("why.c1.body") },
@@ -95,7 +109,7 @@ function Landing() {
             {t("hero.subcopy")}
           </p>
           <div className="mt-10">
-            <CompassMedallionButton label={t("hero.cta")} subtext={t("hero.cta.subtext")} />
+            <CompassMedallionButton label={t("hero.cta")} subtext={heroSubtext} />
           </div>
         </div>
         <a
